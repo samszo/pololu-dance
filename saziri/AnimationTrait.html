@@ -1,0 +1,56 @@
+<html>
+
+<body>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+
+var lineData = [ { "x": 1,   "y": 5},  { "x": 20,  "y": 20},
+                  { "x": 40,  "y": 10}, { "x": 60,  "y": 40},
+                  { "x": 80,  "y": 5},  { "x": 100, "y": 60}];
+lineData  = setAnimation(1000);
+ //This is the accessor function we talked about above
+ var lineFunction = d3.svg.line()
+                          .x(function(d) { return d.x; })
+                          .y(function(d) { return d.y; })
+                         .interpolate("circle");
+
+//The SVG Container
+var svgContainer = d3.select("body").append("svg")
+                                    .attr("width", 1000)
+                                    .attr("height", 1000);
+
+//The line SVG Path we draw
+var lineGraph = svgContainer.append("path")
+                            .attr("d", lineFunction(lineData))
+                           .attr("stroke", "blue")
+                          .attr("stroke-width", 5)
+                            .attr("fill", "none");
+
+function getRandomPoints(n){
+// infinie
+    var mX=50, mY=50;//margin;
+    var t=1;
+    return d3.range(0,n).map(function(d){
+        t++;
+        mX =300*((Math.sin(t))/(1+Math.cos(t)*Math.cos(t)))+400;
+        mY =300*((Math.sin(t)*Math.cos(t))/(1+Math.cos(t)*Math.cos(t)))+250;
+        return {i:d, x:mX, y:mY};
+        });
+}
+
+function setAnimation(n){
+	var a = 150;
+	var t = 20;
+	return d3.range(0,n).map(function(d){ 
+	t++;
+	var mX =  a * Math.cos(t) + 200;
+	var mY = a * Math.sin(t) *(Math.pow(Math.sin(t / 2), 2)) + 200;
+		return {i:d,  x: mX, y: mY};
+		});
+
+}
+</script>
+</body>
+
+</html>
