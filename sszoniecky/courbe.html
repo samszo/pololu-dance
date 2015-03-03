@@ -1,0 +1,74 @@
+<html>
+<head>
+	<title>Chorégraphie Pololu</title>
+	<style>
+		.points{
+			fill:green;
+		}
+		polyline, .ray{
+			fill:none;
+			stroke-width:6;
+			stroke:red;
+			stroke-opacity:0.5;
+		}
+		.sweepline{
+			stroke:orange;
+		}
+	</style>
+</head>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+<script>
+
+var width=900, height=500,points, bnd=[], ang=[];
+
+var xt =10;
+var a =200;
+function getCourbePoints(n){
+	var mX=50, mY=50;//margin;
+	
+	return d3.range(0,n).map(function(d){ 
+	xt++;
+	    mX= (a-1)*Math.sin(xt)*Math.sin(3*xt)+250;
+		mY= (a+1)*Math.cos(xt)+Math.cos(3*xt)+250;
+				
+     		return {i:d, x:mX*10, y:mY*10};
+		
+		});
+}
+//merci à https://www.dashingd3js.com/svg-paths-and-d3js
+/*The data for our line
+var lineData = [ { "x": 1,   "y": 5},  { "x": 20,  "y": 20},
+                 { "x": 40,  "y": 10}, { "x": 60,  "y": 40},
+                 { "x": 80,  "y": 5},  { "x": 100, "y": 60}];
+*/
+var lineData = getCourbePoints(20);
+
+//This is the accessor function we talked about above
+var lineFunction = d3.svg.line()
+                         .x(function(d) { return d.x; })
+                         .y(function(d) { return d.y; })
+                         .interpolate("cardinal");
+
+//The SVG Container
+var svgContainer = d3.select("body").append("svg")
+                                    .attr("width", "1782mm")
+                                    .attr("height", "1260mm")
+                                    .attr("viewBox", "0 0 6736 4764")
+                                    .attr("preserveAspectRatio", "xMidYMid meet")
+                                    ;
+
+//The line SVG Path we draw
+var lineGraph = svgContainer.append("path")
+                            .attr("d", lineFunction(lineData))
+                            .attr("stroke", "blue")
+                            .attr("stroke-width", 2)
+                            .attr("fill", "none");
+
+</script>
+
+
+</body>
+</html>
+
