@@ -148,17 +148,26 @@ function redrawBoundary(t){
 }
 
 function initialize(){	
-	points=getRandomPoints(30);
+	var lineData=getRandomPoints(10);
 	
-	d3.select("body").append("svg").attr("width",width).attr("height",height);
-	d3.select("svg").append("line").attr("class","sweepline");
-	d3.select("svg").append("polyline");
-	d3.select("svg").append("line").attr("class","ray")
 	
-	d3.select("svg").selectAll(".points").data(points).enter().append("circle").attr("class","points")
-		.attr("cx",function(d){ return d.x}).attr("cy",function(d){ return d.y})
-		.attr("r",6);
-		
+ //This is the accessor function we talked about above
+ var lineFunction = d3.svg.line()
+                         .x(function(d) { return d.x; })
+                         .y(function(d) { return d.y; })
+                         .interpolate("basis");
+
+//The SVG Container
+var svgContainer = d3.select("body").append("svg")
+                                    .attr("width", 1000)
+                                   .attr("height", 1000);
+
+//The line SVG Path we draw
+var lineGraph = svgContainer.append("path")
+                            .attr("d", lineFunction(lineData))
+                           .attr("stroke", "blue")
+                            .attr("stroke-width", 2)
+                            .attr("fill", "none");
 	getBoundary();
 }
 
