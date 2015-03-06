@@ -21,29 +21,28 @@
 
 <script>
 
-//The data for our line
-/*
-var lineData = [ { "x": 1,   "y": 5},  { "x": 20,  "y": 20},
-                 { "x": 40,  "y": 10}, { "x": 60,  "y": 40},
-                 { "x": 80,  "y": 5},  { "x": 100, "y": 60}];
-     */            
 
-var xt =10;
-var a =200;
+// merci a http://www.mathcurve.com/courbes2d/poisson/poisson.shtml 
+
+var xt =60;
+var a =150;
+var k= 3;
 function getRandomPoints(n){
 	var mX=50, mY=50;//margin;
 	
 	return d3.range(0,n).map(function(d){ 
 	xt++;
-	    mX= (a-1)*Math.sin(xt)*Math.sin(3*xt)+250;
-		mY= (a+1)*Math.cos(xt)+Math.cos(3*xt)+250;
+	    mX= a*(Math.sin(xt) + k*Math.sin(xt/4)) + 650;
+		mY= a*(Math.sin(xt/2)) + 250;
 				
      		return {i:d, x:mX, y:mY};
 		
 		});
 }
+ 
 
-var lineData = getRandomPoints(20)
+ 
+var lineData = getRandomPoints(500)
 //This is the accessor function we talked about above
 var lineFunction = d3.svg.line()
                          .x(function(d) { return d.x; })
@@ -52,14 +51,14 @@ var lineFunction = d3.svg.line()
 
 //The SVG Container
 var svgContainer = d3.select("body").append("svg")
-                                    .attr("width", 800)
-                                    .attr("height", 800);
+                                    .attr("width", 1500)
+                                    .attr("height", 500);
 
 //The line SVG Path we draw
 var lineGraph = svgContainer.append("path")
                             .attr("d", lineFunction(lineData))
                             .attr("stroke", "blue")
-                            .attr("stroke-width", 2)
+                            .attr("stroke-width", 5)
                             .attr("fill", "none");
                             
 </script>
