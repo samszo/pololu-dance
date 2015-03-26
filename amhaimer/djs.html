@@ -21,7 +21,7 @@
 
 <script>
 
-var width=900, height=500,points, bnd=[], ang=[];
+var width=17820, height=12600,points, bnd=[], ang=[];
 
 function getRandomPoints(n){
 	var mX=50, mY=50;//margin;
@@ -31,11 +31,11 @@ function getRandomPoints(n){
 		/*return {i:d, x:300*((Math.sin(d))/(1+Math.cos(d)*Math.cos(d)))+400,y:300*((Math.sin(d)*Math.cos(d))/(1+Math.cos(d)*Math.cos(d)))+250};
 		});*/
 		
-		return {i:d, x:200*Math.sin(d)*(Math.sin(d/2))+200//200*Math.cos(d)+400
-		,y:200*Math.cos(d)+250//200*Math.sin(d)*(Math.sin(d/2))+200
+		return {i:d, x:19*200*Math.sin(d)*(Math.sin(d/2))+200//200*Math.cos(d)+400
+		,y:15*200*Math.cos(d)+250//200*Math.sin(d)*(Math.sin(d/2))+200
 		};
 		});
-		
+				
 }
 	
 function getAngle(p0, p1, p2){
